@@ -32,4 +32,3 @@ function operate(a, b, operator) {
     }
 }
 
-console.log(operate(1,2,"divide"))
