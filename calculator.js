@@ -65,6 +65,7 @@ function updateDisplay(input) {
 
 
 function clear() {
+    previousEntry = [];
     currentEntry = [];
     entry.textContent = "0";
     operator = "";
