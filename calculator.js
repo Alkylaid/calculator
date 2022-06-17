@@ -1,6 +1,7 @@
 let previousEntry = [];
 let currentEntry = [];
 let operator = "";
+let operatorIsPressed = false;
 const button = document.querySelectorAll('button');
 const entry = document.querySelector('#entry');
 
@@ -49,6 +50,10 @@ function operate(a, b, operator) {
 }
 
 function updateDisplay(input) {
+    if (operatorIsPressed) {
+        currentEntry = [];
+        operatorIsPressed = false;
+    }
     if (input === "." && currentEntry[0] == null) {
         currentEntry.push("0");
         currentEntry.push(input);
@@ -58,6 +63,7 @@ function updateDisplay(input) {
         currentEntry.push(input);
     } else {
         operator = input;
+        operatorIsPressed = true;
         previousEntry = currentEntry;
     }
     entry.textContent = currentEntry.join("").toString();
