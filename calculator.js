@@ -32,3 +32,9 @@ function operate(a, b, operator) {
     }
 }
 
+function updateDisplay(a) {
+    const entry = document.querySelector('#entry');
+    entry.textContent=`${a}`
+}
+
+updateDisplay(10);

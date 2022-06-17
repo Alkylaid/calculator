@@ -15,7 +15,7 @@ body{
 .buttonContainer{
     display: flex;
     flex-wrap: wrap-reverse;
-    font-family:  'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
 }
 
 
