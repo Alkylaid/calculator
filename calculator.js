@@ -9,6 +9,7 @@ const entry = document.querySelector('#entry');
 button.forEach((btn) => {
     btn.addEventListener('click', () => {
         const input = btn.getAttribute('value');
+        //Checks to see if clear button is clicked or if user divided by zero previously
         if (input === "clear" || currentEntry.includes("C")) {
             clear();
         }
