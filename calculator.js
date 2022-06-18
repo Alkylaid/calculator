@@ -9,6 +9,9 @@ button.forEach((btn) => {
     btn.addEventListener('click', () => {
         if (btn.getAttribute('value') === "clear") {
             clear();
+        } 
+        if (btn.getAttribute('value') === "equals") {
+            operate(previousEntry, currentEntry, operator);
         } else {
             updateDisplay(btn.getAttribute('value'));
         }
@@ -16,35 +19,42 @@ button.forEach((btn) => {
 })
 
 function add(a, b) {
-    return a + b;
+    const answer = parseFloat(a.join("").toString()) + parseFloat(b.join("").toString());
+    return  "" + answer;
 }
 
 function subtract(a, b) {
-    return a - b;
+    const answer = parseFloat(a.join("").toString()) - parseFloat(b.join("").toString());
+    return "" + answer;
 }
 
 function multiply(a, b) {
-    return a * b;
+    const answer = parseFloat(a.join("").toString()) * parseFloat(b.join("").toString());
+    return "" + answer;
 }
 
 function divide(a, b) {
-    if (b === 0) return "nope";
-    return a / b;
-}
+    console.log(b);
+    if (b.toString() === "0") return "nope";
+    const answer = parseFloat(a.join("").toString()) / parseFloat(b.join("").toString());
+    return "" + answer;
+    }
+
 
 function operate(a, b, operator) {
     switch (operator) {
         case "add":
-            return add(a, b);
+            console.log(b);
+           getAnswer(add(a, b));
             break;
         case "subtract":
-            return subtract(a, b);
+            getAnswer(subtract(a, b));
             break;
         case "multiply":
-            return multiply(a, b);
+            getAnswer(multiply(a, b));
             break;
         case "divide":
-            return divide(a, b);
+            getAnswer(divide(a, b));
             break;
     }
 }
@@ -73,7 +83,15 @@ function updateDisplay(input) {
 function clear() {
     previousEntry = [];
     currentEntry = [];
-    entry.textContent = "0";
     operator = "";
+    entry.textContent = "0";
+    
+}
+
+function getAnswer(answer) {
+    currentEntry = [];
+    currentEntry.push(answer);
+    operator = "";
+    entry.textContent = answer;
     
 }
