@@ -9,7 +9,7 @@ button.forEach((btn) => {
     btn.addEventListener('click', () => {
         if (btn.getAttribute('value') === "clear") {
             clear();
-        } 
+        }
         if (btn.getAttribute('value') === "equals") {
             operate(previousEntry, currentEntry, operator);
         } else {
@@ -20,7 +20,7 @@ button.forEach((btn) => {
 
 function add(a, b) {
     const answer = parseFloat(a.join("").toString()) + parseFloat(b.join("").toString());
-    return  "" + answer;
+    return "" + answer;
 }
 
 function subtract(a, b) {
@@ -38,14 +38,14 @@ function divide(a, b) {
     if (b.toString() === "0") return "nope";
     const answer = parseFloat(a.join("").toString()) / parseFloat(b.join("").toString());
     return "" + answer;
-    }
+}
 
 
 function operate(a, b, operator) {
     switch (operator) {
         case "add":
             console.log(b);
-           getAnswer(add(a, b));
+            getAnswer(add(a, b));
             break;
         case "subtract":
             getAnswer(subtract(a, b));
@@ -64,7 +64,12 @@ function updateDisplay(input) {
         currentEntry = [];
         operatorIsPressed = false;
     }
-    if (input === "." && currentEntry[0] == null) {
+    if (input === "delete") {
+        currentEntry.pop();
+        if (!currentEntry.length) {
+            currentEntry.push("0");
+        }
+    } else if (input === "." && currentEntry[0] == null) {
         currentEntry.push("0");
         currentEntry.push(input);
     } else if (input === "." && !currentEntry.includes(".")) {
@@ -77,6 +82,7 @@ function updateDisplay(input) {
         previousEntry = currentEntry;
     }
     entry.textContent = currentEntry.join("").toString();
+
 }
 
 
@@ -85,7 +91,7 @@ function clear() {
     currentEntry = [];
     operator = "";
     entry.textContent = "0";
-    
+
 }
 
 function getAnswer(answer) {
@@ -93,5 +99,5 @@ function getAnswer(answer) {
     currentEntry.push(answer);
     operator = "";
     entry.textContent = answer;
-    
+
 }
