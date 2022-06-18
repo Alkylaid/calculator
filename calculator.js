@@ -9,12 +9,16 @@ const entry = document.querySelector('#entry');
 button.forEach((btn) => {
     btn.addEventListener('click', () => {
         const input = btn.getAttribute('value');
-        if (input === "clear") {
+        if (input === "clear" || currentEntry.includes("C")) {
             clear();
+        }
+        if (input === "sign") {
+            changeSign();
+            updateDisplay();
         }
         if (input === ".") {
             addDecimal();
-        } 
+        }
         if (input === "delete") {
             currentEntry.pop();
         }
@@ -25,37 +29,38 @@ button.forEach((btn) => {
             }
             if (currentEntry[0] === "0" && currentEntry.length <= 1) {
                 currentEntry.pop();
-                
+
             }
-                currentEntry.push(input);
+            currentEntry.push(input);
         }
         if (operator.includes(input) && !currentOperator.length) {
             previousEntry = currentEntry;
             currentOperator = input;
-            operatorIsPressed  = true;
-            updateDisplay();
-         }  else if (operator.includes(input) && currentOperator.length) {
             operatorIsPressed = true;
-            operate(previousEntry,currentEntry,currentOperator);
+            updateDisplay();
+        } else if (operator.includes(input) && currentOperator.length) {
+            operatorIsPressed = true;
+            operate(previousEntry, currentEntry, currentOperator);
             previousEntry = currentEntry;
             updateDisplay();
             currentOperator = input;
-         }
-         if (input == "equals") {
-            if(currentOperator.length) {
-            operate(previousEntry,currentEntry, currentOperator);
-            operatorIsPressed = false;
-            updateDisplay();
-            previousEntry = currentEntry;
-            currentOperator = "";
+        }
+        if (input == "equals") {
+            if (currentOperator.length) {
+                operate(previousEntry, currentEntry, currentOperator);
+                operatorIsPressed = false;
+                updateDisplay();
+                previousEntry = currentEntry;
+                currentOperator = "";
             }
 
         }
-         else { 
+        else {
             updateDisplay();
-         }
-    
-})
+           
+        }
+
+    })
 });
 
 function add(a, b) {
@@ -75,7 +80,7 @@ function multiply(a, b) {
 
 function divide(a, b) {
     console.log(b);
-    if (b.toString() === "0") return "nope";
+    if (b.toString() === "0") return "Can't Divide By Zero!";
     const answer = parseFloat(a.join("").toString()) / parseFloat(b.join("").toString());
     return "" + answer;
 }
@@ -99,22 +104,7 @@ function operate(a, b, operator) {
 }
 
 function updateDisplay() {
-    // if (operatorIsPressed) {
-    //     currentEntry = [];
-    //     operatorIsPressed = false;
-    // }
-    // if (/^[0-9/]+$/.test(input)) {
-    //     currentEntry.push(input);
-    // } else if (input === "." && !currentEntry.includes(".")) {
-    //     currentEntry.push(input);
-    // } else {
-    //     operate(previousEntry, currentEntry, operator);
-        
-    // }
-    // operate(previousEntry, currentEntry, operator);
     entry.textContent = currentEntry.join("").toString();
-    
-
 }
 
 
@@ -129,7 +119,7 @@ function clear() {
 
 function getAnswer(answer) {
     currentEntry = [];
-    currentEntry.push(answer);
+    currentEntry = answer.toString().split("");
 
 }
 
@@ -142,3 +132,10 @@ function addDecimal() {
         operatorIsPressed = false;
     }
 }
+
+function changeSign() {
+    const number = -1 * parseFloat(currentEntry.join("").toString());
+    currentEntry = [];
+    currentEntry = number.toString().split("");
+}
+
