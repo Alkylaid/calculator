@@ -1,16 +1,60 @@
 let previousEntry = ["0"];
 let currentEntry = ["0"];
-let operator = ["add", "subtract", "multiply", "divide"];
+let operator = ["+", "-", "*", "/"];
 let currentOperator = "";
 let operatorIsPressed = false;
 const button = document.querySelectorAll('button');
 const entry = document.querySelector('#entry');
 
+
+window.onkeypress = (event) => {
+    const name = event.key;
+    if (currentEntry.includes("C")) {
+        previousEntry = ["0"];
+        currentEntry = ["0"];
+    }
+    if (name === "Enter") {
+        event.preventDefault();
+        document.querySelector(`[value="="]`).click();
+
+    } else if (name == "Backspace") {
+        document.querySelector(`[value="delete"]`).click();
+    } else if (document.querySelector(`[value="${name}"]`)) {
+        document.querySelector(`[value="${name}"]`).click();
+
+    }
+
+};
+
+window.onkeydown = (event) => {
+    const name = event.key;
+    if (name === "Enter") {
+        document.querySelector(`[value="="]`).setAttribute('style', 'transform: scale(0.95)');
+    } else if (name === "Backspace") {
+        document.querySelector(`[value="delete"]`).setAttribute('style', 'transform: scale(0.95)');
+    } else if (document.querySelector(`[value="${name}"]`)) {
+        document.querySelector(`[value="${name}"]`).setAttribute('style', 'transform: scale(0.95)');
+    }
+}
+window.onkeyup = (event) => {
+    const name = event.key;
+    if (name === "Enter") {
+        document.querySelector(`[value="="]`).removeAttribute('style');
+    } else if (name === "Backspace") {
+        document.querySelector(`[value="delete"]`).removeAttribute('style');
+    } else if (document.querySelector(`[value="${name}"]`)) {
+        document.querySelector(`[value="${name}"]`).removeAttribute('style');
+    } 
+}
+
 button.forEach((btn) => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (event) => {
         const input = btn.getAttribute('value');
-        //Checks to see if clear button is clicked or if user divided by zero previously
-        if (input === "clear" || currentEntry.includes("C")) {
+        if (currentEntry.includes("C")) {
+            previousEntry = ["0"];
+            currentEntry = ["0"];
+        }
+        if (input === "clear") {
             clear();
         }
         if (input === "sign") {
@@ -23,7 +67,7 @@ button.forEach((btn) => {
         if (input === "delete") {
             currentEntry.pop();
         }
-        if (/^[0-9/]+$/.test(input)) {
+        if (/^[0-9]+$/.test(input)) {
             if (operatorIsPressed) {
                 currentEntry = ["0"];
                 operatorIsPressed = false;
@@ -46,7 +90,7 @@ button.forEach((btn) => {
             updateDisplay();
             currentOperator = input;
         }
-        if (input == "equals") {
+        if (input === "=") {
             if (currentOperator.length) {
                 operate(previousEntry, currentEntry, currentOperator);
                 operatorIsPressed = false;
@@ -57,8 +101,9 @@ button.forEach((btn) => {
 
         }
         else {
+
             updateDisplay();
-           
+
         }
 
     })
@@ -80,7 +125,6 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    console.log(b);
     if (b.toString() === "0") return "Can't Divide By Zero!";
     const answer = parseFloat(a.join("").toString()) / parseFloat(b.join("").toString());
     return "" + answer;
@@ -89,16 +133,16 @@ function divide(a, b) {
 
 function operate(a, b, operator) {
     switch (operator) {
-        case "add":
+        case "+":
             getAnswer(add(a, b));
             break;
-        case "subtract":
+        case "-":
             getAnswer(subtract(a, b));
             break;
-        case "multiply":
+        case "*":
             getAnswer(multiply(a, b));
             break;
-        case "divide":
+        case "/":
             getAnswer(divide(a, b));
             break;
     }
@@ -112,9 +156,10 @@ function updateDisplay() {
 function clear() {
     previousEntry = ["0"];
     currentEntry = ["0"];
-    entry.textContent = "0";
+    entry.textContent = currentEntry;
     operatorIsPressed = false;
     currentOperator = "";
+
 
 }
 
