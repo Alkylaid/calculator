@@ -47,8 +47,9 @@ button.forEach((btn) => {
             clear();
         }
         if (input === "sign") {
+            if (currentEntry.length){
             changeSign();
-            updateDisplay();
+            updateDisplay();}
         }
         if (input === ".") {
             addDecimal();
@@ -176,6 +177,7 @@ function addDecimal() {
 }
 
 function changeSign() {
+   
     const number = -1 * parseFloat(currentEntry.join("").toString());
     currentEntry = [];
     currentEntry = number.toString().split("");
