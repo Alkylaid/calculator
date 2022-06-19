@@ -7,7 +7,7 @@ const button = document.querySelectorAll('button');
 const entry = document.querySelector('#entry');
 
 
-window.onkeypress = (event) => {
+window.onkeydown = (event) => {
     const name = event.key;
     if (currentEntry.includes("C")) {
         previousEntry = ["0"];
@@ -16,23 +16,12 @@ window.onkeypress = (event) => {
     if (name === "Enter") {
         event.preventDefault();
         document.querySelector(`[value="="]`).click();
-
-    } else if (name == "Backspace") {
-        document.querySelector(`[value="delete"]`).click();
-    } else if (document.querySelector(`[value="${name}"]`)) {
-        document.querySelector(`[value="${name}"]`).click();
-
-    }
-
-};
-
-window.onkeydown = (event) => {
-    const name = event.key;
-    if (name === "Enter") {
         document.querySelector(`[value="="]`).setAttribute('style', 'transform: scale(0.95)');
     } else if (name === "Backspace") {
+        document.querySelector(`[value="delete"]`).click();
         document.querySelector(`[value="delete"]`).setAttribute('style', 'transform: scale(0.95)');
     } else if (document.querySelector(`[value="${name}"]`)) {
+        document.querySelector(`[value="${name}"]`).click();
         document.querySelector(`[value="${name}"]`).setAttribute('style', 'transform: scale(0.95)');
     }
 }
@@ -83,17 +72,22 @@ button.forEach((btn) => {
             currentOperator = input;
             operatorIsPressed = true;
             updateDisplay();
-        } else if (operator.includes(input) && currentOperator.length) {
-            if (currentEntry.length && previousEntry.length) {
+        } else if (operator.includes(input) && currentOperator.length && currentEntry.length) {
+            if (!previousEntry.length) {
+                previousEntry = ["0"]
+            }
             operatorIsPressed = true;
             operate(previousEntry, currentEntry, currentOperator);
             previousEntry = currentEntry;
             updateDisplay();
             currentOperator = input;
             }
-        }
+        
         if (input === "=") {
-            if (currentOperator.length && currentEntry.length && previousEntry.length) {
+            if (currentOperator.length  && currentEntry.length) {
+                if (!previousEntry.length) {
+                    previousEntry = ["0"]
+                }
                 operate(previousEntry, currentEntry, currentOperator);
                 operatorIsPressed = false;
                 updateDisplay();
