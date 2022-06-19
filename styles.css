@@ -66,14 +66,14 @@ button:active {
 }
 
 .operator:hover {
-    background-image: linear-gradient(to top left, rgba(51,186,174,1),rgba(163, 249, 245, 1));
+    background-image: linear-gradient(to top left, rgb(51,186,174),rgb(163, 249, 245));
 }
 .numpad {
     background: linear-gradient(to top left, rgb(162, 174, 174), rgb(191, 204, 204));
     
 }
 .numpad:hover {
-    background-image: linear-gradient(to top left, rgba(162,174,174,1),rgba(255,255,255,.7));
+    background-image: linear-gradient(to top left, rgb(162,174,174),rgb(217, 234, 234));
 }
 
 
