@@ -73,7 +73,7 @@ button:active {
     
 }
 .numpad:hover {
-    background-image: linear-gradient(to top left, rgb(162,174,174),rgb(217, 234, 234));
+    background-image: linear-gradient(to top left, rgb(162,174,174),rgb(235, 245, 245));
 }
 
 
@@ -82,5 +82,5 @@ button:active {
 }
 
 .miscButton:hover {
-    background: linear-gradient(to top left,rgb(255, 165, 0), rgb(238, 198, 124));
+    background: linear-gradient(to top left,rgb(255, 165, 0), rgb(255, 226, 171));
 }
