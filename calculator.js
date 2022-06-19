@@ -84,14 +84,16 @@ button.forEach((btn) => {
             operatorIsPressed = true;
             updateDisplay();
         } else if (operator.includes(input) && currentOperator.length) {
+            if (currentEntry.length && previousEntry.length) {
             operatorIsPressed = true;
             operate(previousEntry, currentEntry, currentOperator);
             previousEntry = currentEntry;
             updateDisplay();
             currentOperator = input;
+            }
         }
         if (input === "=") {
-            if (currentOperator.length) {
+            if (currentOperator.length && currentEntry.length && previousEntry.length) {
                 operate(previousEntry, currentEntry, currentOperator);
                 operatorIsPressed = false;
                 updateDisplay();

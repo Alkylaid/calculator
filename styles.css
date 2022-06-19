@@ -23,6 +23,7 @@ body{
 button{
     height: 150px;
     font-size: 30px;
+    font-weight: bold;
     flex-basis: 25%;
     border: 1px solid rgb(40, 40, 40);
     transition-duration: 0.2s;
@@ -33,7 +34,7 @@ button:hover{
     
 }
 
-button:active, button.active{
+button:active {
     
     transform: scale(0.95);
     
